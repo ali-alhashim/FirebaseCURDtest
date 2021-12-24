@@ -1,89 +1,62 @@
 package com.example.firebasecurdtest
 
-import androidx.appcompat.app.AppCompatActivity
+import android.content.ContentValues
 import android.os.Bundle
+import android.util.Log
+import android.view.View
 import android.widget.Button
+import androidx.appcompat.app.AppCompatActivity
+import com.google.firebase.auth.FirebaseAuth
 
-class MainActivity : AppCompatActivity() {
+class MainActivity : AppCompatActivity(), View.OnClickListener {
+
+    companion object
+    {
+        lateinit var auth : FirebaseAuth
+
+        const val EMAIL = "test@aliAlhashim.com"
+        const val NAME = "ALI"
+        const val PASS = "StrongPass1234@"
+    }
+
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        val registerButton :Button = findViewById(R.id.registerButton)
-        val loginButton :Button = findViewById(R.id.loginButton)
-
-        val writeSimpleDataButton : Button = findViewById(R.id.writeSimpleDataButton)
-        val readSimpleDataButton : Button = findViewById(R.id.readSimpleDataButton)
-
-        val writeObjectButton : Button = findViewById(R.id.writeObjectButton)
-        val readObjectButton : Button = findViewById(R.id.readObjectButton)
-
-        val writeManyObjectButton :Button = findViewById(R.id.writeManyObjectButton)
-        val readManyObjectButton :Button = findViewById(R.id.readManyObjectButton)
-
-        val readContinuouslyButton :Button = findViewById(R.id.readContinuouslyButton)
-
-         // -- register button action
-        registerButton.setOnClickListener()
-        {
-            registerFunction()
-        }
-
-        // -- login button action
-        loginButton.setOnClickListener()
-        {
-            loginFunction()
-        }
-
-        // -- write simple data button action
-        writeSimpleDataButton.setOnClickListener()
-        {
-            writeSimpleDataFunction()
-        }
-
-        // -- read simple data button action
-        readSimpleDataButton.setOnClickListener()
-        {
-            readSimpleDataFunction()
-        }
-
-        // -- write object button action
-        writeObjectButton.setOnClickListener()
-        {
-            writeObjectFunction()
-        }
-
-        // -- read object button action
-        readObjectButton.setOnClickListener()
-        {
-            readObjectFunction()
-        }
-
-        // -- write many objects action
-        writeManyObjectButton.setOnClickListener()
-        {
-            writeManyObjectFunction()
-        }
-
-        // -- read many objects action
-        readManyObjectButton.setOnClickListener()
-        {
-            readManyObject()
-        }
-
-        // --read Continuously Button
-
-        readContinuouslyButton.setOnClickListener()
-        {
-            readContinuously()
-        }
 
 
+        Log.d(ContentValues.TAG,"init FirebaseAuth")
+        auth = FirebaseAuth.getInstance()
+
+         val registerButton : Button = findViewById(R.id.registerButton)
+         registerButton.setOnClickListener(this)
+
+         val loginButton : Button = findViewById(R.id.loginButton)
+         loginButton.setOnClickListener(this)
 
 
 
     }
 
+    override fun onClick(button: View?) {
+
+        Log.d(ContentValues.TAG,"you click on the view")
+
+        when(button!!.id)
+        {
+            R.id.registerButton -> registerFunction()
+            R.id.loginButton -> loginFunction()
+            R.id.writeSimpleDataButton -> writeSimpleDataFunction()
+            R.id.readSimpleDataButton -> readSimpleDataFunction()
+            R.id.writeObjectButton -> writeObjectFunction()
+            R.id.readObjectButton -> readObjectFunction()
+            R.id.writeManyObjectButton -> writeManyObjectFunction()
+            R.id.readManyObjectButton -> readManyObjectFunction()
+            R.id.readContinuouslyButton -> readContinuouslyFunction()
+        }
+
+    }
 
 
 }
